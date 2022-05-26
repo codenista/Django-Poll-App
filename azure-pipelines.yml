@@ -64,7 +64,7 @@ stages:
       - task: KubernetesManifest@0
         inputs:
           action: 'createSecret'
-          kubernetesServiceConnection: 'poll-service-connect'
+          kubernetesServiceConnection: 'new-poll-connection'
           namespace: 'default'
           secretType: 'dockerRegistry'
           secretName: '$(acrsecret)'
@@ -78,7 +78,7 @@ stages:
       - task: KubernetesManifest@0
         inputs:
           action: 'createSecret'
-          kubernetesServiceConnection: 'poll-service-connect'
+          kubernetesServiceConnection: 'new-poll-connection'
           namespace: 'default'
           secretType: 'generic'
           secretName: 'azure-secret-fshare'
@@ -102,7 +102,7 @@ stages:
       - task: KubernetesManifest@0
         inputs:
           action: 'deploy'
-          kubernetesServiceConnection: 'poll-service-connect'
+          kubernetesServiceConnection: 'new-poll-connection'
           namespace: 'default'
           manifests: |
             $(Pipeline.Workspace)/manifests/poll-app-pv.yml
