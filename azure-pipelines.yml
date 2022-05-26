@@ -61,4 +61,26 @@ stages:
           buildType: 'current'
           artifactName: 'manifests'
           targetPath: '$(Pipeline.Workspace)/manifests'
+      - task: KubernetesManifest@0
+        inputs:
+          action: 'createSecret'
+          kubernetesServiceConnection: 'kubernete-connection'
+          namespace: 'default'
+          secretType: 'dockerRegistry'
+          secretName: '$(acrsecret)'
+          dockerRegistryEndpoint: 'pollacr999'
+      - task: AzureKeyVault@2
+        inputs:
+          azureSubscription: 'Visual Studio Enterprise Subscription – MPN(97bc8f84-568f-4b16-a365-14ffad56d435)'
+          KeyVaultName: 'poll-keyvault'
+          SecretsFilter: 'AzureStorageAccountName,AzureStorageAccountKey'
+          RunAsPreJob: false
+      - task: KubernetesManifest@0
+        inputs:
+          action: 'createSecret'
+          kubernetesServiceConnection: 'kubernete-connection'
+          namespace: 'default'
+          secretType: 'generic'
+          secretName: 'azure-secret-fshare'
+          secretArguments: '--from-literal=azurestorageaccountname=$(AzureStorageAccountName) --from-literal=azurestorageaccountkey=$(AzureStorageAccountKey)'
       
