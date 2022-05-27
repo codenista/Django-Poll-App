@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pool
+  name: poll
 spec:
   replicas: #replicaNo#
   selector:
     matchLabels:
-      app: pool
+      app: poll
   template:
     metadata:
       labels:
-        app: pool
+        app: poll
     spec:
       nodeSelector:
         "kubernetes.io/os": windows
       containers:
-      - name: pool
+      - name: poll
         image: pollacr999.azurecr.io/poll_app:latest
         ports:
         - containerPort: 8000
         env:
         - name: APPNAME
-          value: "pool"
+          value: "poll"
         - name: db_host
           valueFrom:
             secretKeyRef:
@@ -69,10 +69,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pool
+  name: poll
 spec:
   type: LoadBalancer
   ports:
   - port: 8000
   selector:
-    app: pool
+    app: poll
