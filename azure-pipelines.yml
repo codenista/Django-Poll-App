@@ -17,7 +17,7 @@ variables:
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'windows-2019'
 
 stages:
 - stage: Build
@@ -37,3 +37,9 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Pipeline.Workspace)/s/kubernetes'
+        ArtifactName: 'manifests'
+        publishLocation: 'Container'
+      
