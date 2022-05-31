@@ -16,37 +16,37 @@ spec:
         "kubernetes.io/os": windows
       containers:
       - name: poll
-        image: pollacr999.azurecr.io/poll_app:latest
+        image: pollsacr012.azurecr.io/pollapp:1.0
         ports:
         - containerPort: 8000
         env:
         - name: APPNAME
           value: "poll"
-        - name: db_host
+        - name: db-host
           valueFrom:
             secretKeyRef:
               name: akvsecretscertwin
-              key: DB_HOST
-        - name: db_user
+              key: DB-HOST
+        - name: db-user
           valueFrom:
             secretKeyRef:
               name: akvsecretscertwin
-              key: DB_USER
-        - name: db_password
+              key: DB-USER
+        - name: db-password
           valueFrom:
             secretKeyRef:
               name: akvsecretscertwin
-              key: DB_PASSWORD
-        - name: db_port
+              key: DB-PASSWORD
+        - name: db-port
           valueFrom:
             secretKeyRef:
               name: akvsecretscertwin
-              key: DB_PORT
-        - name: db_name
+              key: DB-PORT
+        - name: db-name
           valueFrom:
             secretKeyRef:
               name: akvsecretscertwin
-              key: DB_NAME
+              key: DB-NAME
         volumeMounts:
           - mountPath: "/mnt/azure"
             name: volume
