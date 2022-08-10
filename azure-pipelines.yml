@@ -54,3 +54,4 @@ stages:
       displayName: Deploy to AKS
       pool:
         vmImage: windows-2019
+    
