@@ -37,3 +37,20 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Pipeline.Workspace)/s/kubernetes'
+        ArtifactName: 'manifests'
+        publishLocation: 'Container'
+- stage: Deploy
+  displayName: Deploy to Dev
+  dependsOn: Build
+  variables:
+    acrsecret: k8sexamplesacrauth
+    acrdevurl: 'pollappacr0701234.azurecr.io'
+    replicaNo: 4
+  jobs:
+    - job: Deploy
+      displayName: Deploy to AKS
+      pool:
+        vmImage: windows-2019
