@@ -54,3 +54,9 @@ stages:
       displayName: Deploy to AKS
       pool:
         vmImage: windows-2019
+      steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            buildType: 'current'
+            artifactName: 'manifests'
+            targetPath: '$(Pipeline.Workspace)/manifests'
